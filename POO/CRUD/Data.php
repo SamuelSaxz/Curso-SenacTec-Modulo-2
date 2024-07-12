@@ -1,53 +1,64 @@
 <?php
 
-class Data {
-  protected $table, $column, $value, $columnDuplicate, $valueDuplicate, $where;
-  public function __construct($table, $column, $value, $columnDuplicate = null, $valueDuplicate = null, $where = null) {
+abstract class Data
+{
+  protected $table, $column, $value, $columnDuplicate, $where;
+  public function __construct(string $table, array $column, array $value, int $columnDuplicate = null, array $where = null)
+  {
     $this->setTable($table);
     $this->setColumn($column);
     $this->setValue($value);
     $this->setColumnDuplicate($columnDuplicate);
-    $this->setValueDuplicate($valueDuplicate);
     $this->setWhere($where);
   }
 
-  protected function setTable($table) {
+  protected function setTable(string $table)
+  {
     $this->table = $table;
   }
 
-  protected function getTable() {
+  protected function getTable()
+  {
     return $this->table;
   }
 
-  protected function setColumn($column) {
+  protected function setColumn(array $column)
+  {
     $this->column = $column;
   }
 
-  protected function setValue($value) {
+  protected function getColumn()
+  {
+    return $this->column;
+  }
+
+  protected function setValue(array $value)
+  {
     $this->value = $value;
   }
 
-  protected function setValueDuplicate($valueDuplicate) {
-    $this->valueDuplicate = $valueDuplicate;
+  protected function getValue()
+  {
+    return $this->value;
   }
 
-  protected function setColumnDuplicate($columnDuplicate) {
+  protected function setColumnDuplicate( int $columnDuplicate)
+  {
     $this->columnDuplicate = $columnDuplicate;
   }
 
-  protected function getColumnDuplicate() {
+  protected function getColumnDuplicate()
+  {
     return $this->columnDuplicate;
   }
 
-  protected function getValueDuplicate() {
-    return $this->valueDuplicate;
-  }
-
-  protected function setWhere($where) {
+  protected function setWhere( array $where)
+  {
     $this->where = $where;
   }
 
-  protected function getWhere() {
+  protected function getWhere()
+  {
     return $this->where;
   }
 }
