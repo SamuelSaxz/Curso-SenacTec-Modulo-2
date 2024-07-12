@@ -2,11 +2,13 @@
 include_once 'Database.php';
 class Delete extends Database {
   public function __construct($table, $column, $value, $where = null) {
-    parent::__construct($table, $column, $value, null, null, null);
+    parent::__construct($table, $column, $value, null, $where);
   }
 
   private function deleteWhere() {
-    $query = "DELETE FROM $this->table WHERE $this->column = '$this->value'";
+    $columns = implode(", ", $this->getColumn());
+    $values = implode("', '", $this->getValue());
+    $query = "DELETE FROM $this->table WHERE $columns = '$values'";
     mysqli_query($this->connect(), $query);
     echo "Usuário excluído com sucesso!";
   }
@@ -27,5 +29,5 @@ class Delete extends Database {
   }
 }
 
-$delete = new Delete('users', 'email', "john@doe.com");
+$delete = new Delete('users', ['email'], ['john@doe.com']);
 $delete->execDelete();
