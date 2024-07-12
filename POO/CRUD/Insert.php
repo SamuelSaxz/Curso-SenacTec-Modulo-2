@@ -2,20 +2,22 @@
 include_once 'Database.php';
 class Insert extends Database {
   
-  public function __construct($table, $column, $value, $columnDuplicate = null, $valueDuplicate = null, $where = null) {
-    parent::__construct($table, $column, $value, $columnDuplicate, $valueDuplicate, $where);
+  public function __construct(string $table, array $column, array $value, int $columnDuplicate = null) {
+    parent::__construct($table, $column, $value, $columnDuplicate);
   }
 
   private function Insert() {
-    $query = "INSERT INTO $this->table ($this->column) VALUES ('$this->value')";
+    $columns = implode(", ", $this->getColumn());
+    $values = implode("', '", $this->getValue());
+    $query = "INSERT INTO $this->table ($columns) VALUES ('$values')";
     mysqli_query($this->connect(), $query);
     echo "Usuário cadastrado com sucesso!";
   }
 
   private function verifyDuplicate() {
-    $sql = $this->selectWhere($this->getTable(), $this->getColumnDuplicate(), $this->getValueDuplicate(), true);
+    $sql = $this->selectWhere($this->getTable(), $this->getColumn()[$this->getColumnDuplicate()], $this->getValue()[$this->getColumnDuplicate()], true);
     if ($sql > 0) {
-      echo $this->getColumnDuplicate() . " já cadastrado!";
+      echo $this->getColumn()[$this->getColumnDuplicate()] . " já cadastrado!";
     }
     else {
       return $this->Insert();
@@ -24,7 +26,7 @@ class Insert extends Database {
 
   public function execInsert() {
     echo "Cadastrando usuário... <br>";
-    if ($this->getColumnDuplicate() && $this->getValueDuplicate()) {
+    if ($this->getColumnDuplicate()) {
       echo "Verificando se o e-mail já existe... <br>";
       return $this->verifyDuplicate();
     }
@@ -34,5 +36,10 @@ class Insert extends Database {
   }
 }
 
-$insert = new Insert('users', 'email', "john@doe.com", 'email', 'john@doe.com');
+$insert = new Insert(
+  'users', 
+  ['name', 'email', 'password'], 
+  ['Samuel de Almeida Aguilar', 'teste3@gmail.com', 'teste1234'], 
+  1
+);
 $insert->execInsert();
