@@ -4,18 +4,23 @@ class Update extends Database
 {
   public function __construct($table, $column, $value, $where = null)
   {
-    parent::__construct($table, $column, $value, null, null, $where);
+    parent::__construct($table, $column, $value, null, $where);
   }
 
   private function update()
   {
-    $query = "UPDATE $this->table SET $this->column = '$this->value'";
+    $columns = implode(", ", $this->getColumn());
+    $values = implode("', '", $this->getValue());
+    $query = "UPDATE $this->table SET $columns = '$values'";
     mysqli_query($this->connect(), $query);
     echo "Usuário atualizado com sucesso!";
   }
 
   private function updateWhere() {
-    $query = "UPDATE $this->table SET $this->column = '$this->value' WHERE $this->where";
+    $columns = implode(", ", $this->getColumn());
+    $values = implode("', '", $this->getValue());
+    $where = implode(", ", $this->getWhere());
+    $query = "UPDATE $this->table SET $columns = '$values' WHERE $where";
     mysqli_query($this->connect(), $query);
     echo "Usuário atualizado com sucesso!";
   }
@@ -26,5 +31,5 @@ class Update extends Database
   }
 }
 
-$update = new Update('users', 'email', "samuel@doe.com", 'id = 28');
+$update = new Update('users', ['email'], ['samuel@doe.com'], ['id = 2']);
 $update->execUpdate();
