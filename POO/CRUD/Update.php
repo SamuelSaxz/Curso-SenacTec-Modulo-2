@@ -1,4 +1,8 @@
 <?php
+/*
+  Classe que atualiza informações no Banco de Dados.
+*/
+
 include_once 'Database.php';
 class Update extends Database
 {
