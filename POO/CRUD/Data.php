@@ -1,8 +1,27 @@
 <?php
+/*
+ Classe que guardar as informações inseridas pelo o usuário.
+
+ protected $table guarda o nome da tabela que será inserida.
+
+ protected $column guarda o nome da coluna que será inserida.
+
+ protected $implodedColumn guarda o nome da coluna que será inserida como uma string.
+
+ protected $value guarda o valor da coluna que será inserida.
+
+ protected $implodedValue guarda o valor da coluna que será inserida como uma string.
+
+ protected $columnDuplicate guarda o nome da coluna que será verificada para não inserir.
+
+ protected $where especifica onde será inserido.
+
+ protected $implodedWhere especifica onde será inserido como uma string.
+*/
 
 abstract class Data
 {
-  protected $table, $column, $value, $columnDuplicate, $where;
+  protected $table, $column, $value, $columnDuplicate, $where, $implodedColumn, $implodedValue, $implodedWhere;
   public function __construct(string $table, array $column, array $value, int $columnDuplicate = null, array $where = null)
   {
     $this->setTable($table);
@@ -42,7 +61,7 @@ abstract class Data
     return $this->value;
   }
 
-  protected function setColumnDuplicate( int $columnDuplicate)
+  protected function setColumnDuplicate(int | null $columnDuplicate)
   {
     $this->columnDuplicate = $columnDuplicate;
   }
@@ -52,7 +71,7 @@ abstract class Data
     return $this->columnDuplicate;
   }
 
-  protected function setWhere( array $where)
+  protected function setWhere(array $where)
   {
     $this->where = $where;
   }
@@ -60,5 +79,36 @@ abstract class Data
   protected function getWhere()
   {
     return $this->where;
+  }
+
+  protected function setImplodedColumn(array $column)
+  {
+    $this->implodedColumn = implode(", ", $column);
+  }
+  
+
+  protected function getImplodedColumn()
+  {
+    return $this->implodedColumn;
+  }
+
+  protected function setImplodedValue(array $value)
+  {
+    $this->implodedValue = implode("', '", $value);
+  }
+
+  protected function getImplodedValue()
+  {
+    return $this->implodedValue;
+  }
+
+  protected function setImplodedWhere(array $where)
+  {
+    $this->implodedWhere = implode(", ", $where);
+  }
+
+  protected function getImplodedWhere()
+  {
+    return $this->implodedWhere;
   }
 }
