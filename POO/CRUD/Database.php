@@ -1,4 +1,19 @@
 <?php
+
+/* 
+  Classe que guarda métodos e atributos para a conexão com o Banco de Dados.
+
+  private $host guarda o host do Banco de Dados.
+
+  private $user guarda o usuário do Banco de Dados.
+
+  private $pass guarda a senha do Banco de Dados.
+
+  private $db guarda o nome do Banco de Dados.
+
+  private $conn guarda a conexão com o Banco de Dados.
+*/
+
 include_once 'Data.php';
 abstract class Database extends Data {
   private $host, $user, $pass, $db, $conn;
@@ -12,7 +27,7 @@ abstract class Database extends Data {
   
   public function connect() {
     try {
-      $this->conn = mysqli_connect($this->host, $this->user, '', $this->db);
+      $this->conn = mysqli_connect($this->host, $this->user, $this->pass, $this->db);
       return $this->conn;
     }
     catch (Exception $error) {
