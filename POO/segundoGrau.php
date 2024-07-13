@@ -49,23 +49,3 @@ class funcaoSegundoGrau extends Valores
 }
 
 ?>
-<h1>Função do Segundo Grau</h1>
-<form action="/samuelAguilar/index.php?pagina=segundoGrau" method="post" class="col-6 d-flex flex-column gap-3">
-  <div class="form-group">
-    <label for="a">A</label>
-    <input type="number" class="form-control col-6" id="a" name="a" placeholder="Número">
-  </div>
-  <div class="form-group">
-    <label for="b">B</label>
-    <input type="number" class="form-control col-6" id="b" name="b" placeholder="Número">
-  </div>
-  <div class="form-group">
-    <label for="c">C</label>
-    <input type="number" class="form-control col-6" id="c" name="c" placeholder="Número">
-  </div>
-  <button type="submit" class="btn btn-primary">Calcular</button>
-</form>
-<h2>Resultado</h2>
-<?php 
-  $segundoGrau = new funcaoSegundoGrau(@$_POST['a'], @$_POST['b'], @$_POST['c']);
-?>

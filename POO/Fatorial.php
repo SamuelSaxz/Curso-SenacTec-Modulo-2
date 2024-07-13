@@ -11,7 +11,7 @@ class funcaoFatorial extends Valores
   }
   protected function getResultado()
   {
-    return $this->resultado ?? 'error';
+    return $this->resultado;
   }
 
   protected function setResultado()
@@ -24,15 +24,4 @@ class funcaoFatorial extends Valores
   }
 }
 
-?>
-<h1>Função para Fatorial</h1>
-<form action="/samuelAguilar/index.php?pagina=Fatorial" method="post" class="col-6 d-flex flex-column gap-3">
-  <div class="form-group">
-    <label for="numero">Número</label>
-    <input type="number" class="form-control col-6" id="numero" name="numero" placeholder="Número">
-  </div>
-  <button type="submit" class="btn btn-primary">Calcular</button>
-</form>
-<?php
-$fatorial = new funcaoFatorial(@$_POST['numero']);
 ?>

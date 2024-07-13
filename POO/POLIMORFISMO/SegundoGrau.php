@@ -8,6 +8,7 @@ class funcaoSegundoGrau extends Valores
         $this->setA($a);
         $this->setB($b);
         $this->setC($c);
+        $this->execDelta();
     }
     public function getDelta()
     {
